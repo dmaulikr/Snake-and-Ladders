@@ -25,8 +25,12 @@ int main(int argc, const char * argv[]) {
         [input stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
         
             if([input containsString:@"r"] || [input containsString:@"roll"]){
-                NSLog(@"Rolling dice...");
                 [player roll];
+                if(player.GAMEOVER){
+                    NSLog(@"Game over!!!!");
+                    REPLAY = NO;
+                    break;
+                }
             }
             else if ([input containsString:@"quit"]){
                 REPLAY = NO;

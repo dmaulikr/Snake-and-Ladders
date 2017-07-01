@@ -15,6 +15,7 @@
     self = [super init];
     if (self) {
         _currentSquare = 0;
+        _GAMEOVER = NO;
         _gameLogic = [[NSDictionary alloc] initWithObjectsAndKeys:
                       
                       // Ladders
@@ -39,11 +40,35 @@
 }
 
 -(void)roll{
+    
     NSInteger random = arc4random_uniform(6)+1;
     self.currentSquare = self.currentSquare + random;
-    NSLog(@"Dice value: %d", (int)random);
-    NSLog(@"You are on the square: %d", (int)self.currentSquare);
-    NSLog(@"Dictionary %@", self.gameLogic[@64]);
+    
+    
+    
+    if([self.gameLogic objectForKey:[NSNumber numberWithInteger:self.currentSquare]] == nil){
+        self.result = @"No Snake/Ladder";
+    }
+    else if([self.gameLogic objectForKey:[NSNumber numberWithInteger:self.currentSquare]] != nil){
+        if(self.currentSquare > [self.gameLogic[[NSNumber numberWithInteger:self.currentSquare]] integerValue]){
+            self.result = @"You landed on a snake head";
+        }
+        else{
+            self.result = @"You landed on a ladder!";
+        }
+        self.currentSquare = [self.gameLogic[[NSNumber numberWithInteger:self.currentSquare]] integerValue];
+    }
+    
+    
+    
+    if(self.currentSquare >= 100){
+        self.GAMEOVER = YES;
+    }
+    
+    NSLog(@"- Dice value: %d", (int)random);
+    NSLog(@"- %@", self.result);
+    NSLog(@"- You are on the square: %d",(int)self.currentSquare);
+    
 }
 
 @end
