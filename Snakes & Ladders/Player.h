@@ -10,5 +10,6 @@
 
 @interface Player : NSObject
 @property (nonatomic) NSInteger currentSquare;
+@property (nonatomic) NSDictionary* gameLogic;
 -(void)roll;
 @end
