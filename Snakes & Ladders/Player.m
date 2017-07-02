@@ -67,7 +67,7 @@
     
     NSLog(@"- Dice value: %d", (int)random);
     NSLog(@"- %@", self.result);
-    NSLog(@"- You are on the square: %d",(int)self.currentSquare);
+    NSLog(@"- %@ is on the square: %d",self.name,(int)self.currentSquare);
     
 }
 

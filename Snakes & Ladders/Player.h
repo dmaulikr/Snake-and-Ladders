@@ -13,5 +13,6 @@
 @property (nonatomic) NSDictionary* gameLogic;
 @property (nonatomic) NSString *result;
 @property (nonatomic) BOOL GAMEOVER;
+@property (nonatomic) NSString *name;
 -(void)roll;
 @end

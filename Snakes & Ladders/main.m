@@ -7,15 +7,42 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Player.h"
+#import "PlayerManager.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
    
         BOOL REPLAY = YES;
-        NSLog(@"Welcome, type r for roll");
-        Player *player = [[Player alloc] init];
+        BOOL USER_DID_CREATE = NO;
+        PlayerManager *manager = [[PlayerManager alloc] init];
         
+        
+        while (!USER_DID_CREATE) {
+            NSLog(@"Enter the number of players: \n");
+            char userInput[255];
+            fgets(userInput, 255, stdin);
+            NSString *input = [NSString stringWithCString:userInput encoding: NSUTF8StringEncoding];
+            [input stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+            int number = [input intValue];
+            
+            if(number > 0){
+                [manager createPlayer:number];
+                USER_DID_CREATE = YES;
+                break;
+            }
+            
+            else{
+                NSLog(@"Input a numeric value greater than 0 \n ");
+            }
+            
+        }
+        
+        
+        
+        
+        
+        
+        NSLog(@"Welcome, type r for roll");
         
         while(REPLAY){
             
@@ -25,12 +52,12 @@ int main(int argc, const char * argv[]) {
         [input stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
         
             if([input containsString:@"r"] || [input containsString:@"roll"]){
-                [player roll];
-                if(player.GAMEOVER){
-                    NSLog(@"Game over!!!!");
-                    REPLAY = NO;
-                    break;
-                }
+                [manager roll];
+//                if(player.GAMEOVER){
+//                    NSLog(@"Game over!!!!");
+//                    REPLAY = NO;
+//                    break;
+//                }
             }
             else if ([input containsString:@"quit"]){
                 REPLAY = NO;
